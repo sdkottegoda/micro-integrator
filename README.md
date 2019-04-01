@@ -24,6 +24,7 @@ mvn clean install -Ddocker.skip=false
 
 WSO2 Micro Integrator is licensed under the [Apache License](http://www.apache.org/licenses/LICENSE-2.0).
 
+
 ## Copyright
 
 (c) 2018, [WSO2 Inc.](http://www.wso2.org) All Rights Reserved.
