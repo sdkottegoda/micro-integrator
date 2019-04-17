@@ -4,11 +4,11 @@ This guide walks you through a sample scenario of invoking a simple backend via 
 
 Following are the sections available in this guide.
 
-- What you'll build
-- Prerequisites
-- Implementation
-- Deployment
-- Testing
+- [What you'll build](#what-you'll-build)
+- [Prerequisites](#prerequisites)
+- [Implementation](#implementation)
+- [Deployment](#deployment)
+- [Testing](#testing)
 
 ## What You'll Build
 
@@ -49,7 +49,10 @@ You can build the order process back-end and deploy it in Micro Integrator using
    ```
    will create the file 'order-processCompositeApplication_1.0.0.car' in `order-process-be/order-processCompositeApplication/target` directory.
  
-2. Use docker cli to create the docker image with the CAPP we created.(Please note that the distribution must be built with -Ddocker.skip=false prior to this step, for the base image to be created)
+2. Use docker cli to create the docker image with the C-app we created.
+(Please note that the distribution must be built with -Ddocker.skip=false prior to this step, for the base image to be created)
+
+    **note:-** If you need to skip the deployment in docker, you can directly deploy the services locally as explained in the section, [Local Deployment.](#local-deployment) 
    ```
    $ docker build -t wso2/mi-order-process-be .
    ```
@@ -63,7 +66,7 @@ You can build the order process back-end and deploy it in Micro Integrator using
     http://localhost:8291/order
     ```
 
- #### 2. Build the composite service to invoke the back-end
+ #### 2. Create the composite service to invoke the back-end
  
  Throughout this section, you will be creating a composite service using WSO2 EI Tool, deploying it in Micro Integrator and running it in Docker. Please follow the below steps to create the composite service.
  
@@ -75,9 +78,9 @@ You can build the order process back-end and deploy it in Micro Integrator using
  
  ![diagram](images/api-config.png) 
  
-4. Save the project and export the composite application to a desired location. (Alternatively you can build the project 'composite-service' using maven and the CApp will be located in `composite-service/composite-service-capp/target`. The rest of the document will assume that the Capp resides in `composite-service/composite-service-capp/target`
+4. Save the project and export the composite application to a desired location. (Alternatively you can build the project 'composite-service' using maven and the C-App will be located in `composite-service/composite-service-capp/target`. The rest of the document will assume that the C-App resides in `composite-service/composite-service-capp/target`
  
-5. Use docker cli to create the docker image with the both back-end and composite service CAPPs we created
+5. Use docker cli to create the docker image with the both back-end and composite service C-Apps we created
    ```
    $ cd <mi-work-directory>/examples/getting-started/composite-service
    $ docker build -t wso2/mi-getting-started .
