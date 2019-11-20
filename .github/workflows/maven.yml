@@ -3,10 +3,12 @@ name: Java CI
 on: [push]
 
 jobs:
-  linux:
+  matrix:
 
-    runs-on: ubuntu-latest
-
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [windows-latest, ubuntu-latest, macOS-latest]
     steps:
     - uses: actions/checkout@v1
     - name: Set up JDK 1.8
@@ -15,28 +17,28 @@ jobs:
         java-version: 1.8
     - name: Build with Maven
       run: mvn -B clean install -P smoke-tests --file pom.xml
-  windows:
+#  windows:
+#
+#    runs-on: windows-latest
 
-    runs-on: windows-latest
-
-    steps:
-    - uses: actions/checkout@v1
-    - name: Set up JDK 1.8
-      uses: actions/setup-java@v1
-      with:
-        java-version: 1.8
-    - name: Build with Maven
-      run: mvn -B clean install -P smoke-tests --file pom.xml
-  
-  mac:
-
-    runs-on: macOS-latest
-
-    steps:
-    - uses: actions/checkout@v1
-    - name: Set up JDK 1.8
-      uses: actions/setup-java@v1
-      with:
-        java-version: 1.8
-    - name: Build with Maven
-      run: mvn -B clean install -P smoke-tests --file pom.xml
+#    steps:
+#    - uses: actions/checkout@v1
+#    - name: Set up JDK 1.8
+#      uses: actions/setup-java@v1
+#      with:
+#        java-version: 1.8
+#    - name: Build with Maven
+#      run: mvn -B clean install -P smoke-tests --file pom.xml
+#  
+#  mac:
+#
+#    runs-on: macOS-latest
+#
+#    steps:
+#    - uses: actions/checkout@v1
+#    - name: Set up JDK 1.8
+#      uses: actions/setup-java@v1
+#      with:
+#        java-version: 1.8
+#    - name: Build with Maven
+#      run: mvn -B clean install -P smoke-tests --file pom.xml
