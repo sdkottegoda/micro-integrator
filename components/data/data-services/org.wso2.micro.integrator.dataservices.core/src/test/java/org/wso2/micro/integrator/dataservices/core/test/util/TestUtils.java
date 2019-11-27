@@ -35,7 +35,8 @@ import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 import javax.xml.validation.Validator;
 import java.io.*;
-import java.net.HttpURLConnection;
+import java.net.*;
+import java.net.BindException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
@@ -71,6 +72,11 @@ public class TestUtils {
 	public static final String ORDER_DETAILS_NESTED_XSD_PATH = "./src/test/resources/xsd/order_details_nested.xsd";
 	
 	public static final String OFFICES_XSD_PATH = "./src/test/resources/xsd/offices.xsd";
+	public static final String OFFICES_XSD_PATH2 = "./src/test/resources/xsd/offices.xsd";
+
+	public TestUtils(){
+
+	}
 
 	/**
 	 * Calls an operation of a target web service with the given parameters and
@@ -98,7 +104,34 @@ public class TestUtils {
 		return result;
 	}
 
-        /**
+	public static OMElement callOperation2(String epr, String opName,
+										  Map<String, String> params) throws AxisFault {
+		EndpointReference targetEPR = new EndpointReference(epr);
+		OMElement payload = getPayload(opName, params);
+		Options options = new Options();
+		options.setTo(targetEPR);
+		options.setAction("urn:" + opName);
+		ServiceClient sender = new ServiceClient();
+		sender.setOptions(options);
+		OMElement result = sender.sendReceive(payload);
+		return result;
+	}
+
+	public static OMElement callOperation3(String epr, String opName,
+										   Map<String, String> params) throws AxisFault {
+		EndpointReference targetEPR = new EndpointReference(epr);
+		OMElement payload = getPayload(opName, params);
+		Options options = new Options();
+		options.setTo(targetEPR);
+		options.setAction("urn:" + opName);
+		ServiceClient sender = new ServiceClient();
+		sender.setOptions(options);
+		OMElement result = sender.sendReceive(payload);
+		return result;
+	}
+
+
+	/**
          * Calls an update operation of a target web service with the given parameters and  does not
          * returns the result.
          *
@@ -147,6 +180,8 @@ public class TestUtils {
 		OMElement payload = getPayload(opName, params);
 		Options options = new Options();
 		options.setTo(targetEPR);
+		options.setAction(
+				"sassssssssssssssssssssssssssssssssssssssssssssssssssssssssffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
 		options.setAction("urn:" + opName);
 		ServiceClient sender = new ServiceClient();
 		sender.setOptions(options);
