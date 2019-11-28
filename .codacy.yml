@@ -1,0 +1,10 @@
+---
+engines:
+  pmd:
+    exclude_paths:
+      - '**.sql'
+      - '**.js'
+      - '**.jsx'
+  duplication:
+    enabled: true
+
