@@ -51,7 +51,7 @@ public class MailToTransportFolderTestCase extends ESBIntegrationTest {
                         + "mailTransportReceiver" + File.separator + "mail_transport_folder.xml")));
         Utils.deploySynapseConfiguration(mailToProxyOMElement,
                 "MailTransportFolder","proxy-services",
-                true);
+                false);
         carbonLogReader = new CarbonLogReader();
         greenMailUser = GreenMailServer.getPrimaryUser();
         greenMailClient = new GreenMailClient(greenMailUser);

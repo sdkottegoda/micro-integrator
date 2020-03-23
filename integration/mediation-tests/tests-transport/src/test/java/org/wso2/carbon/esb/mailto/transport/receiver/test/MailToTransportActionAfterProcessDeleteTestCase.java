@@ -55,7 +55,7 @@ public class MailToTransportActionAfterProcessDeleteTestCase extends ESBIntegrat
                         "mailTransportReceiver" + File.separator + "mail_transport_delete.xml")));
         Utils.deploySynapseConfiguration(mailToProxyOMElement,
                 "MailTransportProtocolDelete","proxy-services",
-                true);
+                false);
         carbonLogReader = new CarbonLogReader();
         greenMailUser = GreenMailServer.getPrimaryUser();
         greenMailClient = new GreenMailClient(greenMailUser);

@@ -54,7 +54,7 @@ public class MailToTransportRemoveHeaderTestCase extends ESBIntegrationTest {
                         "mailTransportReceiver" + File.separator + "mail_transport_remove_header.xml")));
         Utils.deploySynapseConfiguration(mailToProxyOMElement,
                 "MailTransportRemoveHeader","proxy-services",
-                true);
+                false);
         carbonLogReader = new CarbonLogReader();
         greenMailUser = GreenMailServer.getPrimaryUser();
         greenMailClient = new GreenMailClient(greenMailUser);

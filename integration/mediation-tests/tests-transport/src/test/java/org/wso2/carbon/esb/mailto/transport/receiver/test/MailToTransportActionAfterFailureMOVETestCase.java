@@ -55,7 +55,7 @@ public class MailToTransportActionAfterFailureMOVETestCase extends ESBIntegratio
                         "mailTransportReceiver" + File.separator + "mail_transport_actionafter_failure_move.xml")));
         Utils.deploySynapseConfiguration(mailToProxyOMElement,
                 "MailToTransportActionAfterFailureMoveTestCase","proxy-services",
-                true);
+                false);
         carbonLogReader = new CarbonLogReader();
         carbonLogReader.start();
         greenMailUser = GreenMailServer.getPrimaryUser();

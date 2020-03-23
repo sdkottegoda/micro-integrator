@@ -56,7 +56,7 @@ public class MailToTransportPreserveHeadersTestCase extends ESBIntegrationTest {
                         "mailTransportReceiver" + File.separator + "mail_transport_preserve_header.xml")));
         Utils.deploySynapseConfiguration(mailToProxyOMElement,
                 "MailTransportPreserveHeader","proxy-services",
-                true);
+                false);
         carbonLogReader = new CarbonLogReader();
         greenMailUser = GreenMailServer.getPrimaryUser();
         greenMailClient = new GreenMailClient(greenMailUser);

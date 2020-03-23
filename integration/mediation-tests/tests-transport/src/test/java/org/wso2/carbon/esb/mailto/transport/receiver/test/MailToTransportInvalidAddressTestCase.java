@@ -48,7 +48,7 @@ public class MailToTransportInvalidAddressTestCase extends ESBIntegrationTest {
                         + "mailTransportReceiver" + File.separator + "mail_transport_invalid_address.xml")));
         Utils.deploySynapseConfiguration(mailToProxyOMElement,
                 "MailTransportInvalidAddress","proxy-services",
-                true);
+                false);
         carbonLogReader = new CarbonLogReader();
         carbonLogReader.start();
 

@@ -343,7 +343,7 @@ public class Utils {
     }
 
     public static void undeploySynapseConfiguration(String artifactName, String artifactType) {
-        undeploySynapseConfiguration(artifactName, artifactType, true);
+        undeploySynapseConfiguration(artifactName, artifactType, false);
     }
 
     public static void undeploySynapseConfiguration(String artifactName, String artifactType, boolean restartServer) {
