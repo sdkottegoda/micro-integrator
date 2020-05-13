@@ -20,7 +20,9 @@ package org.wso2.micro.integrator.initializer.handler.transaction.store.connecto
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.wso2.micro.integrator.initializer.handler.transaction.DataSourceUndefinedException;
 import org.wso2.micro.integrator.initializer.handler.transaction.TransactionCounterException;
+import org.wso2.micro.integrator.initializer.handler.transaction.TransactionCounterInitializationException;
 
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
@@ -47,9 +49,10 @@ public class RDBMSConnector {
      * Constructor.
      *
      * @param dataSource - The datasource config to initiate the connection.
-     * @throws TransactionCounterException - when something goes wrong while initializing RDBMS connection.
+     * @throws TransactionCounterInitializationException - when something goes wrong while initializing RDBMS connection.
      */
-    public RDBMSConnector(DataSource dataSource, String nodeId, Cipher cipher) throws TransactionCounterException {
+    public RDBMSConnector(DataSource dataSource, String nodeId, Cipher cipher)
+            throws TransactionCounterInitializationException {
         this.nodeId = nodeId;
         this.cipher = cipher;
         this.dataSource = dataSource;
@@ -60,7 +63,7 @@ public class RDBMSConnector {
                 LOG.debug("Successfully connected to : " + databaseType);
             }
         } catch (SQLException ex) {
-            throw new TransactionCounterException("Error while initializing RDBMS connection.", ex);
+            throw new TransactionCounterInitializationException("Error while initializing RDBMS connection.", ex);
         }
     }
 

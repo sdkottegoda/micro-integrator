@@ -30,6 +30,7 @@ import org.wso2.micro.integrator.ndatasource.common.DataSourceException;
 import org.wso2.micro.integrator.ndatasource.core.CarbonDataSource;
 import org.wso2.micro.integrator.ndatasource.core.DataSourceService;
 
+import java.util.Objects;
 import java.util.UUID;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -51,7 +52,8 @@ public class TransactionCountHandlerComponent {
 
     private ScheduledExecutorService txCountWriterTaskScheduler;
 
-    public void start(DataSourceService dataSourceService) throws TransactionCounterException, DataSourceException {
+    public void start(DataSourceService dataSourceService) throws DataSourceUndefinedException, DataSourceException,
+            TransactionCounterInitializationException {
         DataSource dataSource = getTransactionDataSource(dataSourceService);
 
         // initialize cipher for encryption needs.
@@ -128,16 +130,15 @@ public class TransactionCountHandlerComponent {
      * @param dataSourceService dataSourceService instance.
      * @return - true if datasource defined.
      * @throws DataSourceException         - when DataSource is not an RDBMS data source.
-     * @throws TransactionCounterException - when no DataSource is available for transaction counting utility.
+     * @throws DataSourceUndefinedException - when no DataSource is available for transaction counting utility.
      */
     private DataSource getTransactionDataSource(DataSourceService dataSourceService)
-            throws DataSourceException, TransactionCounterException {
+            throws DataSourceException, DataSourceUndefinedException {
 
         String dataSourceId = getTransactionDatasourceId();
         CarbonDataSource dataSource = dataSourceService.getDataSource(dataSourceId);
-        if (dataSource == null) {
-            throw new DataSourceException(
-                    "DataSource " + dataSourceId + " is not configured properly.");
+        if (Objects.isNull(dataSource)) {
+            throw new DataSourceException("DataSource " + dataSourceId + " is not configured properly.");
         }
         Object transactionDataSourceObject = dataSource.getDSObject();
         if (!(transactionDataSourceObject instanceof DataSource)) {
@@ -150,16 +151,16 @@ public class TransactionCountHandlerComponent {
      * Get the dataSource configured for transaction counting utility.
      *
      * @return - datasource id.
-     * @throws TransactionCounterException - when a dataSource is not configured for transaction counting utility.
+     * @throws DataSourceUndefinedException - when a dataSource is not configured for transaction counting utility.
      */
-    private String getTransactionDatasourceId() throws TransactionCounterException {
+    private String getTransactionDatasourceId() throws DataSourceUndefinedException {
         Object dataSourceIdObject = ConfigParser.getParsedConfigs().get(
                 TRANSACTION_CONFIG_SECTION + "." + TRANSACTION_CONFIG_DATA_SOURCE);
         if (dataSourceIdObject != null) {
             return dataSourceIdObject.toString();
         } else {
             LOG.error("DataSource is not configured for transaction component.");
-            throw new TransactionCounterException("DataSource is not configured for transaction component.");
+            throw new DataSourceUndefinedException("DataSource is not configured for transaction component.");
         }
     }
 

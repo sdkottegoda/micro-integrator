@@ -21,7 +21,8 @@ package org.wso2.micro.integrator.initializer.handler.transaction.security;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.wso2.micro.integrator.initializer.handler.transaction.TransactionConstants;
-import org.wso2.micro.integrator.initializer.handler.transaction.TransactionCounterException;
+import org.wso2.micro.integrator.initializer.handler.transaction.DataSourceUndefinedException;
+import org.wso2.micro.integrator.initializer.handler.transaction.TransactionCounterInitializationException;
 
 import java.io.BufferedInputStream;
 import java.io.FileInputStream;
@@ -54,9 +55,9 @@ public class CryptoUtil {
      * Initializes the Cipher.
      *
      * @return cipher.
-     * @throws TransactionCounterException - when something goes wrong while initializing the cipher.
+     * @throws DataSourceUndefinedException - when something goes wrong while initializing the cipher.
      */
-    public static Cipher initializeCipher() throws TransactionCounterException {
+    public static Cipher initializeCipher() throws TransactionCounterInitializationException {
         Cipher cipher;
         KeyStore primaryKeyStore = getKeyStore(getAbsolutePathToKeyStoreLocation(),
                                                TransactionConstants.KEYSTORE_PASSWORD,
@@ -69,7 +70,7 @@ public class CryptoUtil {
                     "Successfully initialized the Cipher to be used in the transaction count encryption process in "
                             + "the Transaction Count Handler component.");
         } catch (KeyStoreException | NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException e) {
-            throw new TransactionCounterException("Error initializing Cipher ", e);
+            throw new TransactionCounterInitializationException("Error initializing Cipher ", e);
         }
         return cipher;
     }
@@ -81,17 +82,17 @@ public class CryptoUtil {
      * @param storePassword password of the keyStore.
      * @param storeType     type of the KeyStore.
      * @return - KeyStore.
-     * @throws TransactionCounterException - when something goes wrong while loading the KeyStore for the given
+     * @throws DataSourceUndefinedException - when something goes wrong while loading the KeyStore for the given
      *                                     location.
      */
     private static KeyStore getKeyStore(String location, String storePassword, String storeType)
-            throws TransactionCounterException {
+            throws TransactionCounterInitializationException {
         try (BufferedInputStream bufferedInputStream = new BufferedInputStream(new FileInputStream(location));) {
             KeyStore keyStore = KeyStore.getInstance(storeType);
             keyStore.load(bufferedInputStream, storePassword.toCharArray());
             return keyStore;
         } catch (KeyStoreException | IOException | NoSuchAlgorithmException | CertificateException e) {
-            throw new TransactionCounterException("Error loading keyStore from ' " + location + " ' ", e);
+            throw new TransactionCounterInitializationException("Error loading keyStore from ' " + location + " ' ", e);
         }
     }
 
@@ -102,13 +103,13 @@ public class CryptoUtil {
      * @param plainTextValue transaction count in plain text.
      * @return encrypted transaction count
      */
-    public static String doEncryption(Cipher cipher, String plainTextValue) throws TransactionCounterException {
+    public static String doEncryption(Cipher cipher, String plainTextValue) throws DataSourceUndefinedException {
         String encodedValue;
         try {
             byte[] encryptedPassword = cipher.doFinal(plainTextValue.getBytes());
             encodedValue = DatatypeConverter.printBase64Binary(encryptedPassword);
         } catch (BadPaddingException | IllegalBlockSizeException e) {
-            throw new TransactionCounterException("Error encrypting transaction count ", e);
+            throw new DataSourceUndefinedException("Error encrypting transaction count ", e);
         }
         return encodedValue;
     }
