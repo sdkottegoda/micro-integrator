@@ -1595,7 +1595,7 @@
         <jdbc-pool.orbit.version>7.0.34.wso2v2</jdbc-pool.orbit.version>
         <jdbc-pool.orbit.imp.pkg.version>[1.7.0,2.0.0)</jdbc-pool.orbit.imp.pkg.version>
 
-        <xerces.version>2.11.0</xerces.version>
+        <xerces.version>2.12.0</xerces.version>
         <antlr4.runtime.version>4.5.1.wso2v1</antlr4.runtime.version>
 
         <atomikos.version>3.8.0.wso2v1</atomikos.version>
