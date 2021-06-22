@@ -1669,7 +1669,7 @@
         <!-- OAS3 Versions -->
         <swagger.parser.orbit.version>2.0.20.wso2v1</swagger.parser.orbit.version>
         <swagger.core.v2.version>1.6.1</swagger.core.v2.version>
-        <jackson.core.version>2.12.1</jackson.core.version>
+        <jackson.core.version>2.12.3</jackson.core.version>
         <snakeyaml.version>1.27</snakeyaml.version>
         <javax.validation.version>1.1.0.Final</javax.validation.version>
     </properties>
