@@ -1388,7 +1388,7 @@
         <fasterxml.jackson.version>2.10.3</fasterxml.jackson.version>
         <carbon.commons.version>4.7.32</carbon.commons.version>
         <carbon.rule.version>4.5.3</carbon.rule.version>
-        <carbon.deployment.version>4.9.11</carbon.deployment.version>
+        <carbon.deployment.version>4.10.3</carbon.deployment.version>
         <wss4j.version>1.5.11-wso2v20</wss4j.version>
         <rampart.wso2.version>1.6.1-wso2v39</rampart.wso2.version>
         <siddhi.version>3.2.3</siddhi.version>
